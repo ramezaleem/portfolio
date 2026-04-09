@@ -110,12 +110,12 @@ export default function Hero() {
             {t("hero.title")}
           </motion.p>
           <motion.h1
-            className="mt-3 text-4xl md:text-5xl lg:text-6xl xl:text-7xl font-bold leading-tight"
+            className="mt-3 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight"
             variants={fadeUp}
             custom={1}
           >
-            {t("hero.name")}{" "}
-            <span className="gradient-text">.NET</span>
+            <span className="block leading-[1.1]">{t("hero.name")}</span>
+            <span className="block gradient-text leading-[1.1]">.NET</span>
           </motion.h1>
           <motion.p
             className="mt-4 text-lg md:text-xl text-muted-foreground min-h-7 font-light"

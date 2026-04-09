@@ -57,50 +57,45 @@ export default function Skills() {
 
       <div className="container">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
+           initial={{ opacity: 0, y: 40 }}
+           whileInView={{ opacity: 1, y: 0 }}
+           viewport={{ once: false, margin: "-100px" }}
+           transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
-            {t("skills.title")}
-          </h2>
-          <div className="section-divider" />
-        </motion.div>
+          <div className="text-center md:text-left">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
+              {t("skills.title")}
+            </h2>
+            <div className="section-divider" />
+          </div>
 
-        <motion.div
-          className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4"
-          variants={containerVariants}
-          initial="hidden"
-          whileInView="visible"
-          viewport={{ once: true, margin: "-60px" }}
-        >
-          {categories.map(({ key, icon: Icon, skills }) => (
-            <motion.article
-              key={key}
-              className="glass-card rounded-xl p-4 group"
-              variants={cardVariants}
-            >
-              <div className="flex items-center gap-2 mb-3">
-                <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
-                  <Icon className="h-4 w-4" />
+          <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+            {categories.map(({ key, icon: Icon, skills }) => (
+              <article
+                key={key}
+                className="glass-card rounded-xl p-4 group"
+              >
+                <div className="flex items-center gap-2 mb-3">
+                  <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+                    <Icon className="h-4 w-4" />
+                  </div>
+                  <h3 className="font-semibold text-base">
+                    {t(`skills.categories.${key}`)}
+                  </h3>
                 </div>
-                <h3 className="font-semibold text-base">
-                  {t(`skills.categories.${key}`)}
-                </h3>
-              </div>
-              <div className="flex flex-wrap gap-2">
-                {skills.map((s) => (
-                  <span
-                    key={s}
-                    className="skill-tag text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white hover:text-black transition-all duration-300 cursor-default"
-                  >
-                    {s}
-                  </span>
-                ))}
-              </div>
-            </motion.article>
-          ))}
+                <div className="flex flex-wrap gap-2">
+                  {skills.map((s) => (
+                    <span
+                      key={s}
+                      className="skill-tag text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white hover:text-black transition-all duration-300 cursor-default"
+                    >
+                      {s}
+                    </span>
+                  ))}
+                </div>
+              </article>
+            ))}
+          </div>
         </motion.div>
       </div>
     </section>

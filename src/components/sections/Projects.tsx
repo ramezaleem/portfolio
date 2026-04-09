@@ -113,186 +113,150 @@ export default function Projects() {
 
       <div className="container">
         <motion.div
-          initial={{ opacity: 0, y: 20 }}
+          initial={{ opacity: 0, y: 40 }}
           whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: "-80px" }}
-          transition={{ duration: 0.6 }}
+          viewport={{ once: false, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
-            {t("projects.title")}
-          </h2>
-          <div className="section-divider" />
-        </motion.div>
+          <div className="text-center md:text-left">
+            <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
+              {t("projects.title")}
+            </h2>
+            <div className="section-divider" />
+          </div>
 
-        {/* Filter buttons */}
-        <motion.div
-          className="mt-8 mb-12 flex flex-wrap gap-3"
-          initial={{ opacity: 0, y: 15 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          transition={{ delay: 0.2, duration: 0.5 }}
-        >
-          {(["all", "backend", "frontend"] as const).map((f) => (
-            <motion.div
-              key={f}
-              variants={filterBtnVariants}
-              animate={filter === f ? "active" : "inactive"}
-            >
+          {/* Filter buttons */}
+          <div className="mt-8 mb-12 flex flex-wrap gap-3">
+            {(["all", "backend", "frontend"] as const).map((f) => (
               <Button
+                key={f}
                 variant={filter === f ? "hero" : "secondary"}
                 size="sm"
                 onClick={() => setFilter(f)}
-                className="rounded-full px-5"
+                className="rounded-full px-5 transition-transform active:scale-95"
               >
                 {t(`projects.filters.${f}`)}
               </Button>
-            </motion.div>
-          ))}
-        </motion.div>
+            ))}
+          </div>
 
-        {/* Project cards */}
-        <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-          <AnimatePresence mode="wait">
-            {visible.map((p, i) => (
-              <motion.div
-                key={p.id}
-                variants={cardVariants}
-                initial="hidden"
-                animate="visible"
-                exit="exit"
-                transition={{ delay: i * 0.1 }}
-              >
-                <Dialog>
-                  <DialogTrigger asChild>
-                    <article className="glass-card group relative flex h-full flex-col overflow-hidden rounded-2xl cursor-pointer">
-                      <div className="relative aspect-[3/1.4] overflow-hidden">
-                        <img
-                          src={p.image}
-                          alt={`${p.name} preview image`}
-                          loading="lazy"
-                          className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
-                        />
-                        {/* Overlay gradient on hover */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-                      </div>
-                      <div className="flex flex-1 flex-col p-5">
-                        <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">
-                          {p.name}
-                        </h3>
-                        <p className="mt-2 flex-1 text-sm text-muted-foreground line-clamp-3 leading-relaxed">
-                          {p.desc}
-                        </p>
-                        <div className="mt-4 flex items-center justify-between pt-4 border-t border-border/50">
-                          <p className="text-xs gradient-text font-medium">
-                            {p.tech}
-                          </p>
-                          <div className="flex items-center gap-3">
-                            {p.liveUrl && (
-                              <a
-                                href={p.liveUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={(e) => e.stopPropagation()}
-                                className="text-muted-foreground transition-all hover:text-primary hover:scale-110"
-                                aria-label="Live Demo"
-                              >
-                                <ExternalLink className="h-5 w-5" />
-                              </a>
-                            )}
-                            {p.repoUrl && (
-                              <a
-                                href={p.repoUrl}
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                onClick={(e) => e.stopPropagation()}
-                                className="text-muted-foreground transition-all hover:text-primary hover:scale-110"
-                                aria-label="GitHub Repository"
-                              >
-                                <Github className="h-5 w-5" />
-                              </a>
-                            )}
-                          </div>
-                        </div>
-                      </div>
-                    </article>
-                  </DialogTrigger>
-
-                  <DialogContent className="max-w-4xl p-0 overflow-hidden rounded-2xl border-primary/10">
-                    <div className="grid h-full max-h-[90vh] grid-rows-[auto,1fr]">
-                      <DialogHeader className="p-8 pb-0">
-                        <DialogTitle className="text-3xl font-bold gradient-text">
-                          {p.name}
-                        </DialogTitle>
-                      </DialogHeader>
-                      <div className="grid gap-8 overflow-y-auto p-8 md:grid-cols-2">
-                        <div className="relative aspect-video w-full self-start overflow-hidden rounded-xl">
+          {/* Project cards grids */}
+          <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
+            <AnimatePresence mode="popLayout">
+              {visible.map((p) => (
+                <motion.div
+                  key={p.id}
+                  layout
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 0.9 }}
+                  transition={{ duration: 0.4 }}
+                >
+                  <Dialog>
+                    <DialogTrigger asChild>
+                      <article className="glass-card group relative flex h-full flex-col overflow-hidden rounded-2xl cursor-pointer">
+                        <div className="relative aspect-[3/1.4] overflow-hidden">
                           <img
                             src={p.image}
-                            alt={`${p.name} preview large`}
-                            className="h-full w-full object-cover"
+                            alt={`${p.name} preview image`}
+                            loading="lazy"
+                            className="h-full w-full object-cover transition-transform duration-700 group-hover:scale-110"
                           />
+                          <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
                         </div>
-                        <div className="flex flex-col gap-6">
-                          <div>
-                            <h4 className="mb-2 text-lg font-semibold">
-                              About the Project
-                            </h4>
-                            <p className="text-muted-foreground leading-relaxed">
-                              {p.desc}
-                            </p>
-                          </div>
-                          <div>
-                            <h4 className="mb-2 text-lg font-semibold">
-                              Technologies Used
-                            </h4>
-                            <p className="text-sm gradient-text font-medium">
+                        <div className="flex flex-1 flex-col p-5">
+                          <h3 className="text-lg font-semibold group-hover:text-primary transition-colors">
+                            {p.name}
+                          </h3>
+                          <p className="mt-2 flex-1 text-sm text-muted-foreground line-clamp-3 leading-relaxed">
+                            {p.desc}
+                          </p>
+                          <div className="mt-4 flex items-center justify-between pt-4 border-t border-border/50">
+                            <p className="text-xs gradient-text font-medium">
                               {p.tech}
                             </p>
-                          </div>
-                          <div className="mt-auto flex flex-wrap gap-3 pt-4">
-                            {p.liveUrl && (
-                              <Button
-                                asChild
-                                variant="hero"
-                                className="transition-transform active:scale-95"
-                              >
+                            <div className="flex items-center gap-3">
+                              {p.liveUrl && (
                                 <a
                                   href={p.liveUrl}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="flex items-center gap-2"
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="text-muted-foreground transition-all hover:text-primary hover:scale-110"
+                                  aria-label="Live Demo"
                                 >
-                                  Live Demo{" "}
-                                  <ExternalLink className="h-4 w-4" />
+                                  <ExternalLink className="h-5 w-5" />
                                 </a>
-                              </Button>
-                            )}
-                            {p.repoUrl && (
-                              <Button
-                                asChild
-                                variant="secondary"
-                                className="transition-transform active:scale-95"
-                              >
+                              )}
+                              {p.repoUrl && (
                                 <a
                                   href={p.repoUrl}
                                   target="_blank"
                                   rel="noopener noreferrer"
-                                  className="flex items-center gap-2"
+                                  onClick={(e) => e.stopPropagation()}
+                                  className="text-muted-foreground transition-all hover:text-primary hover:scale-110"
+                                  aria-label="GitHub Repository"
                                 >
-                                  GitHub <Github className="h-4 w-4" />
+                                  <Github className="h-5 w-5" />
                                 </a>
-                              </Button>
-                            )}
+                              )}
+                            </div>
+                          </div>
+                        </div>
+                      </article>
+                    </DialogTrigger>
+                    
+                    <DialogContent className="max-w-4xl p-0 overflow-hidden rounded-2xl border-primary/10">
+                      {/* Dialog content preserved exactly */}
+                      <div className="grid h-full max-h-[90vh] grid-rows-[auto,1fr]">
+                        <DialogHeader className="p-8 pb-0">
+                          <DialogTitle className="text-3xl font-bold gradient-text">
+                            {p.name}
+                          </DialogTitle>
+                        </DialogHeader>
+                        <div className="grid gap-8 overflow-y-auto p-8 md:grid-cols-2">
+                          <div className="relative aspect-video w-full self-start overflow-hidden rounded-xl">
+                            <img
+                              src={p.image}
+                              alt={`${p.name} preview large`}
+                              className="h-full w-full object-cover"
+                            />
+                          </div>
+                          <div className="flex flex-col gap-6">
+                            <div>
+                              <h4 className="mb-2 text-lg font-semibold">About the Project</h4>
+                              <p className="text-muted-foreground leading-relaxed">{p.desc}</p>
+                            </div>
+                            <div>
+                              <h4 className="mb-2 text-lg font-semibold">Technologies Used</h4>
+                              <p className="text-sm gradient-text font-medium">{p.tech}</p>
+                            </div>
+                            <div className="mt-auto flex flex-wrap gap-3 pt-4">
+                              {p.liveUrl && (
+                                <Button asChild variant="hero">
+                                  <a href={p.liveUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                                    Live Demo <ExternalLink className="h-4 w-4" />
+                                  </a>
+                                </Button>
+                              )}
+                              {p.repoUrl && (
+                                <Button asChild variant="secondary">
+                                  <a href={p.repoUrl} target="_blank" rel="noopener noreferrer" className="flex items-center gap-2">
+                                    GitHub <Github className="h-4 w-4" />
+                                  </a>
+                                </Button>
+                              )}
+                            </div>
                           </div>
                         </div>
                       </div>
-                    </div>
-                  </DialogContent>
-                </Dialog>
-              </motion.div>
-            ))}
-          </AnimatePresence>
-        </div>
+                    </DialogContent>
+                  </Dialog>
+                </motion.div>
+              ))}
+            </AnimatePresence>
+          </div>
+        </motion.div>
       </div>
     </section>
   );

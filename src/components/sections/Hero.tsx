@@ -78,10 +78,10 @@ export default function Hero() {
           transition={{ duration: 20, repeat: Infinity, ease: "linear" }}
         />
         <motion.div
-           className="absolute bottom-[-10%] right-[-5%] w-[35vw] h-[35vw] rounded-full blur-[100px] opacity-[0.1]"
-           style={{ background: "radial-gradient(circle, hsl(280 70% 50%), transparent 70%)" }}
-           animate={{ x: [0, -40, 0], y: [0, -20, 0] }}
-           transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
+          className="absolute bottom-[-10%] right-[-5%] w-[35vw] h-[35vw] rounded-full blur-[100px] opacity-[0.1]"
+          style={{ background: "radial-gradient(circle, hsl(280 70% 50%), transparent 70%)" }}
+          animate={{ x: [0, -40, 0], y: [0, -20, 0] }}
+          transition={{ duration: 15, repeat: Infinity, ease: "linear" }}
         />
       </div>
 
@@ -102,15 +102,28 @@ export default function Hero() {
           initial="hidden"
           animate="visible"
         >
+          <motion.div
+            className="flex items-center gap-2 px-3 py-1 rounded-full bg-green-500/5 border border-green-500/10 w-fit mb-4 backdrop-blur-md mx-auto md:mx-0 relative z-30"
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ delay: 0.2 }}
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-green-500"></span>
+            </span>
+            <span className="text-[10px] font-bold text-green-400/90 uppercase tracking-[0.2em]">{t("hero.badge")}</span>
+          </motion.div>
+          
           <motion.p
-            className="text-sm uppercase tracking-[0.2em] text-muted-foreground font-medium"
+            className="text-sm uppercase tracking-[0.2em] text-muted-foreground font-medium mb-1"
             variants={fadeUp}
             custom={0}
           >
             {t("hero.title")}
           </motion.p>
           <motion.h1
-            className="mt-3 text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight"
+            className="text-2xl md:text-3xl lg:text-4xl xl:text-5xl font-bold leading-tight"
             variants={fadeUp}
             custom={1}
           >
@@ -118,7 +131,7 @@ export default function Hero() {
             <span className="block gradient-text leading-[1.1]">.NET</span>
           </motion.h1>
           <motion.p
-            className="mt-4 text-lg md:text-xl text-muted-foreground min-h-7 font-light"
+            className="mt-6 text-lg md:text-xl text-muted-foreground min-h-7 font-light"
             variants={fadeUp}
             custom={2}
           >
@@ -127,7 +140,7 @@ export default function Hero() {
 
           {/* CTA Buttons */}
           <motion.div
-            className="mt-10 flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
+            className="mt-4 flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
             variants={fadeUp}
             custom={3}
           >
@@ -136,11 +149,11 @@ export default function Hero() {
                 asChild
                 size="lg"
                 variant="hero"
-                className="px-7 h-11 text-sm font-bold rounded-xl hover-glow-primary transition-all duration-300 shadow-lg shadow-primary/20"
+                className="px-8 h-12 text-sm font-bold rounded-xl hover-glow-primary transition-all duration-300 shadow-lg shadow-primary/20"
               >
                 <a href="#projects" className="flex items-center">
                   {t("hero.ctas.viewProjects")}
-                  <ArrowDown className="ml-2 h-3.5 w-3.5" />
+                  <ArrowDown className="ml-2 h-4 w-4" />
                 </a>
               </Button>
             </motion.div>
@@ -149,21 +162,24 @@ export default function Hero() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="px-7 h-11 text-sm font-bold rounded-xl bg-white/5 border-white/20 hover:bg-white/10 hover:border-white/30 transition-all duration-300 backdrop-blur-md"
+                className="px-8 h-12 text-sm font-bold rounded-xl bg-green-500/5 border-green-500/20 hover:bg-green-500/10 hover:border-green-500/30 transition-all duration-300 backdrop-blur-md"
               >
-                <a href="#contact">{t("hero.ctas.contactMe")}</a>
+                <a href="https://wa.me/201221614207" target="_blank" rel="noreferrer" className="flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                  WhatsApp Me
+                </a>
               </Button>
             </motion.div>
           </motion.div>
 
           {/* Social links */}
           <motion.div
-            className="mt-8 flex flex-wrap items-center justify-center md:justify-start gap-5"
+            className="mt-14 flex flex-wrap items-center justify-center md:justify-start gap-6"
             variants={fadeUp}
-            custom={4}
+            custom={5}
           >
             <a
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors story-link relative"
+              className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-all hover:scale-105"
               href="https://www.linkedin.com/in/ramezkhalifa/"
               target="_blank"
               rel="noreferrer"
@@ -171,7 +187,7 @@ export default function Hero() {
               <Linkedin className="h-4 w-4" /> LinkedIn
             </a>
             <a
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors story-link relative"
+              className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-all hover:scale-105"
               href="https://github.com/ramezaleem"
               target="_blank"
               rel="noreferrer"
@@ -179,12 +195,12 @@ export default function Hero() {
               <Github className="h-4 w-4" /> GitHub
             </a>
             <a
-              className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors story-link relative"
+              className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-all hover:scale-105"
               href="mailto:ramez.aleem532@gmail.com"
             >
               <Mail className="h-4 w-4" /> Email
             </a>
-            <span className="flex items-center gap-2 text-sm text-muted-foreground">
+            <span className="flex items-center gap-2 text-sm font-medium text-muted-foreground opacity-60">
               <Phone className="h-4 w-4" /> 01221614207
             </span>
           </motion.div>
@@ -212,8 +228,16 @@ export default function Hero() {
                 src={profileUrl}
                 alt="Ramez Khalifa profile photo"
                 className="h-48 w-48 md:h-64 md:w-64 lg:h-72 lg:w-72 rounded-full shadow-[var(--shadow-elevated)] object-cover relative z-10"
-                whileHover={{ rotate: 2, scale: 1.04 }}
-                transition={{ type: "spring", stiffness: 200, damping: 15 }}
+                animate={{
+                  y: [0, -15, 0],
+                  rotate: [0, 1, -1, 0]
+                }}
+                transition={{
+                  duration: 6,
+                  repeat: Infinity,
+                  ease: "easeInOut"
+                }}
+                whileHover={{ scale: 1.05 }}
               />
             </div>
           </div>

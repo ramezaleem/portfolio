@@ -10,10 +10,12 @@ const resources = {
         about: "About",
         skills: "Skills",
         projects: "Projects",
+        testimonials: "Reviews",
         contact: "Contact",
         downloadCV: "Download CV",
       },
       hero: {
+        badge: "Open for New Challenges",
         name: "Ramez Khalifa",
         title: "Full-Stack .NET Developer",
         typing: [
@@ -49,13 +51,16 @@ const resources = {
         },
       },
       skills: {
-        title: "Skills",
+        title: "Skills & Expertise",
         categories: {
-          backend: "Backend & Databases",
+          backend: "Backend .NET",
           frontend: "Frontend",
           tools: "DevOps & Tools",
           soft: "Soft Skills",
         },
+      },
+      testimonials: {
+        title: "What My Clients Say"
       },
       projects: {
         title: "Featured Projects",
@@ -86,6 +91,9 @@ const resources = {
           tech: "C#, WinForms, SQL Server",
         },
       },
+      footer: {
+        available: "Available for new projects",
+      },
       contact: {
         title: "Contact",
         subtitle: "Let's build something great together.",
@@ -104,10 +112,12 @@ const resources = {
         about: "نبذة عني",
         skills: "المهارات",
         projects: "المشاريع",
+        testimonials: "الآراء",
         contact: "تواصل",
         downloadCV: "تحميل السيرة الذاتية",
       },
       hero: {
+        badge: "متاح لتحديات جديدة",
         name: "رامز خليفة",
         title: "مطور ويب متكامل .NET",
         typing: [
@@ -143,13 +153,16 @@ const resources = {
         },
       },
       skills: {
-        title: "المهارات",
+        title: "المهارات والخبرات",
         categories: {
-          backend: "Backend & Databases",
-          frontend: "Frontend",
-          tools: "DevOps & Tools",
-          soft: "Soft Skills",
+          backend: "البنية التحتية .NET",
+          frontend: "واجهة أمامية",
+          tools: "الأدوات والمزيد",
+          soft: "مهارات ناعمة",
         },
+      },
+      testimonials: {
+        title: "آراء العملاء"
       },
       projects: {
         title: "أهم المشاريع",
@@ -179,6 +192,9 @@ const resources = {
           desc: "A mission-critical desktop application for managing real-time inventory and sales operations with high reliability.",
           tech: "C#, WinForms, SQL Server",
         },
+      },
+      footer: {
+        available: "متاح لمشاريع جديدة",
       },
       contact: {
         title: "تواصل",

@@ -91,23 +91,45 @@
   body {
     @apply bg-background text-foreground font-brand antialiased min-h-screen relative overflow-x-hidden;
     background-attachment: fixed;
-    background-image: linear-gradient(180deg, hsl(265 61% 16%) 0%, hsl(265 61% 11%) 50%, hsl(265 50% 7%) 100%);
+    background-image: linear-gradient(180deg, hsl(265 65% 18%) 0%, hsl(265 60% 12%) 50%, hsl(265 55% 8%) 100%);
+    background-size: 100% 200%;
+    animation: gradient-shift 15s ease infinite alternate;
+    will-change: background-position;
   }
 
-  /* Grain Noise Overlay for Premium Texture */
-  body::after {
-    content: "";
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background: url("data:image/svg+xml,%3Csvg viewBox='0 0 400 400' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noiseFilter'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.6' numOctaves='3' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noiseFilter)'/%3E%3C/svg%3E");
-    opacity: 0.05;
-    pointer-events: none;
-    z-index: 100;
+  @keyframes gradient-shift {
+    0% { background-position: 0% 0%; }
+    100% { background-position: 0% 100%; }
   }
 
+  /* Testimonials Marquee Animation */
+  @keyframes marquee {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(-50% - 1.5rem)); }
+  }
+
+  .animate-marquee {
+    animation: marquee 40s linear infinite;
+    display: flex;
+    width: max-content;
+  }
+
+  [dir="rtl"] .animate-marquee {
+    animation: marquee-rtl 40s linear infinite;
+  }
+
+  @keyframes marquee-rtl {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(calc(50% + 1.5rem)); }
+  }
+
+  /* Premium Arabic font for testimonials */
+  .font-arabic {
+    font-family: 'Inter', 'Amiri', sans-serif;
+    direction: rtl;
+  }
+
+  /* Clean background with no heavy SVG filters for smooth scrolling */
   ::selection {
     background: hsla(280 100% 70% / 0.4);
     color: white;
@@ -254,13 +276,14 @@
 
 .glass-card {
   background: hsla(265, 50%, 15%, 0.4);
-  backdrop-filter: blur(24px) saturate(200%);
-  -webkit-backdrop-filter: blur(24px) saturate(200%);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
   border: 1px solid hsla(265, 50%, 60%, 0.15);
   box-shadow: 0 8px 32px 0 hsla(0, 0%, 0%, 0.3);
   transition: all 0.5s cubic-bezier(0.23, 1, 0.32, 1);
   position: relative;
   overflow: hidden;
+  will-change: transform, backdrop-filter;
 }
 
 .glass-card::before {
@@ -399,13 +422,15 @@
 
 .navbar-glass {
   background: hsla(270, 40%, 99%, 0.85);
-  backdrop-filter: blur(16px) saturate(180%);
-  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
   border-bottom: 1px solid hsla(265, 30%, 85%, 0.5);
 }
 
 .dark .navbar-glass {
   background: hsla(265, 50%, 12%, 0.75);
+  backdrop-filter: blur(10px) saturate(180%);
+  -webkit-backdrop-filter: blur(10px) saturate(180%);
   border-bottom: 1px solid hsla(265, 50%, 40%, 0.25);
 }
 
@@ -546,6 +571,6 @@
   width: 100%;
   height: 100%;
   pointer-events: none;
-  z-index: 9999;
+  z-index: 99;
   background: radial-gradient(circle 300px at var(--mouse-x, 0) var(--mouse-y, 0), hsla(265, 80%, 60%, 0.08), transparent 80%);
 }

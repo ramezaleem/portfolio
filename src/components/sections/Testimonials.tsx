@@ -1,5 +1,5 @@
 import { useRef, useEffect, useState } from "react";
-import { motion, useMotionValue, useAnimation } from "framer-motion";
+import { motion, useMotionValue, animate } from "framer-motion";
 import { useTranslation } from "react-i18next";
 import { Star, Quote } from "lucide-react";
 
@@ -37,7 +37,7 @@ const testimonials: Testimonial[] = [
 
 export default function Testimonials() {
   const { t } = useTranslation();
-  const controls = useAnimation();
+  const animationRef = useRef<any>(null);
   const x = useMotionValue(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const [singleWidth, setSingleWidth] = useState(0);
@@ -49,26 +49,48 @@ export default function Testimonials() {
     if (containerRef.current) {
       const content = containerRef.current.firstChild as HTMLElement;
       if (content) {
-        // Calculate the actual width of a single set of testimonials (including gaps)
-        // Since we have 5 sets, we divide total scroll width by 5
         setSingleWidth(content.scrollWidth / 5);
       }
     }
   }, []);
 
+  const startInfiniteAnimation = (startX: number = x.get()) => {
+    if (animationRef.current) animationRef.current.stop();
+    
+    // Mathematically wrap the starting position to be within the [0, -singleWidth] range
+    let wrappedStart = startX % singleWidth;
+    if (Object.is(wrappedStart, -0)) wrappedStart = 0;
+    x.set(wrappedStart);
+
+    const distanceLeft = singleWidth + wrappedStart;
+    const duration = (25 * distanceLeft) / singleWidth;
+
+    animationRef.current = animate(x, [wrappedStart, -singleWidth], {
+      duration: duration || 25,
+      ease: "linear",
+      onComplete: () => {
+        // When one cycle finishes, restart from 0
+        x.set(0);
+        startInfiniteAnimation(0);
+      }
+    });
+  };
+
   useEffect(() => {
     if (singleWidth > 0) {
-      controls.start({
-        x: [0, -singleWidth],
-        transition: {
-          duration: 25,
-          repeat: Infinity,
-          ease: "linear",
-          repeatType: "loop",
-        },
+      // Start slightly offset so the user can drag both ways
+      const initialOffset = -singleWidth * 2;
+      x.set(initialOffset);
+      
+      animationRef.current = animate(x, [initialOffset, initialOffset - singleWidth], {
+        duration: 25,
+        repeat: Infinity,
+        ease: "linear",
+        repeatType: "loop",
       });
     }
-  }, [singleWidth, controls]);
+    return () => animationRef.current?.stop();
+  }, [singleWidth]);
 
   return (
     <section id="testimonials" className="py-20 relative overflow-hidden">
@@ -92,48 +114,22 @@ export default function Testimonials() {
           >
             <motion.div 
               drag="x"
-              dragConstraints={{ left: -singleWidth * 3, right: 0 }}
-              animate={controls}
+              dragConstraints={{ left: -singleWidth * 4, right: 0 }}
               style={{ x }}
               whileTap={{ cursor: "grabbing" }}
-              onDragStart={() => controls.stop()}
+              onDragStart={() => animationRef.current?.stop()}
               onDragEnd={() => {
                 const currentX = x.get();
                 
                 if (currentX > 0) {
-                  controls.start({
-                    x: [currentX, 0],
-                    transition: { duration: 0.5, ease: "easeOut" }
-                  }).then(() => {
-                    controls.start({
-                      x: [0, -singleWidth],
-                      transition: { duration: 25, repeat: Infinity, ease: "linear", repeatType: "loop" }
-                    });
-                  });
+                  animate(x, 0, {
+                    duration: 0.5,
+                    ease: "easeOut"
+                  }).then(() => startInfiniteAnimation(0));
                   return;
                 }
 
-                // Mathematically wrap the dragged position into the first cycle
-                let wrappedX = currentX % singleWidth;
-                if (Object.is(wrappedX, -0)) wrappedX = 0;
-                
-                // Instantly teleport (visually seamless because of duplicate cards)
-                x.set(wrappedX);
-
-                // Calculate proportional time for the remaining distance
-                const distanceLeft = singleWidth + wrappedX;
-                const duration = (25 * distanceLeft) / singleWidth;
-
-                controls.start({
-                  x: [wrappedX, -singleWidth],
-                  transition: { duration: duration || 25, ease: "linear" }
-                }).then(() => {
-                  // Revert to standard infinite loop
-                  controls.start({
-                    x: [0, -singleWidth],
-                    transition: { duration: 25, repeat: Infinity, ease: "linear", repeatType: "loop" }
-                  });
-                });
+                startInfiniteAnimation(currentX);
               }}
               className="flex gap-6 py-6"
             >

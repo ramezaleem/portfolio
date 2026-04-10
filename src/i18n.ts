@@ -64,31 +64,37 @@ const resources = {
       },
       projects: {
         title: "Featured Projects",
-        filters: { all: "All", backend: ".NET Backend", frontend: "Frontend" },
-        transport: {
-          name: "Transport Management API",
-          desc: "A high-performance modular API built for scale, supporting real-time tracking and scheduling with a focus on security and maintainability.",
-          tech: "C#, ASP.NET Core, EF Core, JWT",
+        readMore: "Read More",
+        readLess: "Show Less",
+        mashael: {
+          name: "Mashael Almarefa Platform",
+          desc: "Mashael Almarefa is a scalable educational platform designed to manage the full learning lifecycle, enabling students to enroll in structured programs, interact with instructors, and attend sessions through a centralized dashboard, with robust admin control over users, courses, and operations.",
+          tech: "Next.js, TypeScript, Tailwind CSS, Authentication",
         },
-        school: {
-          name: "School Discipline API",
-          desc: "Streamlining administrative workflows for 500+ students by automating behavioral tracking and real-time alerts.",
-          tech: "C#, ASP.NET Core, Identity, SQL Server",
+        ruya: {
+          name: "Ruya Kids Platform",
+          desc: "Ru’ya Kids Platform is a curated educational hub designed for young learners, bringing together trusted global and Arabic learning platforms in one place, with organized sections for reading, math, science, and interactive learning experiences in a safe and engaging environment.",
+          tech: "React, JavaScript, Tailwind CSS, React Router",
         },
         bookify: {
           name: "Bookify – Library Management",
           desc: "A comprehensive digital library platform that improved management efficiency by 40% for its active user base.",
           tech: "ASP.NET Core MVC, EF, Azure",
         },
-        exam: {
-          name: "Smart Exam System",
-          desc: "An interactive examination platform providing real-time feedback and a seamless experience for both students and educators.",
-          tech: "ASP.NET Core MVC, Identity, Ajax",
+        ai_learning: {
+          name: "AI Self-Learning Initiative",
+          desc: "AI Self-Learning Initiative for Nafes Skills is an educational platform designed to enhance students’ readiness for national assessments by leveraging AI-powered tools and curated learning resources across core subjects including mathematics, language, and science, providing an interactive and structured learning experience.",
+          tech: "React, JavaScript, Tailwind CSS, React Router",
         },
-        sales: {
-          name: "Sales Inventory (ZITS)",
-          desc: "A mission-critical desktop application for managing real-time inventory and sales operations with high reliability.",
-          tech: "C#, WinForms, SQL Server",
+        pdfswifter: {
+          name: "pdfSwifter – PDF Tools & Downloader",
+          desc: "pdfSwifter is a fast and secure web platform offering a suite of online tools for PDF processing and media downloads, including compression, conversion, and social media video downloading, with a focus on performance, privacy, and seamless user experience.",
+          tech: "Next.js, TypeScript, Tailwind CSS, API Integration",
+        },
+        ecommerce: {
+          name: "E-Commerce Platform",
+          desc: "A modern e-commerce platform featuring product listings, flash sales, categories, and a complete shopping experience with cart, wishlist, and user authentication, designed for performance and seamless user interaction.",
+          tech: "Angular, TypeScript, RxJS, HTML, CSS",
         },
       },
       footer: {
@@ -167,16 +173,17 @@ const resources = {
       },
       projects: {
         title: "أهم المشاريع",
-        filters: { all: "الكل", backend: "خلفي .NET", frontend: "واجهة أمامية" },
-        transport: {
-          name: "Transport Management API",
-          desc: "A high-performance modular API built for scale, supporting real-time tracking and scheduling with a focus on security and maintainability.",
-          tech: "C#, ASP.NET Core, EF Core, JWT",
+        readMore: "قراءة المزيد",
+        readLess: "عرض أقل",
+        mashael: {
+          name: "منصة مشاعل المعرفة",
+          desc: "مشاعل المعرفة هي منصة تعليمية متطورة مصممة لإدارة دورة التعلم بالكامل، مما يتيح للطلاب التسجيل في برامج منظمة، والتفاعل مع المدرسين، وحضور الجلسات من خلال لوحة تحكم مركزية، مع تحكم إداري قوي في المستخدمين والدورات والعمليات.",
+          tech: "Next.js, TypeScript, Tailwind CSS, Authentication",
         },
-        school: {
-          name: "School Discipline API",
-          desc: "Streamlining administrative workflows for 500+ students by automating behavioral tracking and real-time alerts.",
-          tech: "C#, ASP.NET Core, Identity, SQL Server",
+        ruya: {
+          name: "منصة رؤية للأطفال",
+          desc: "منصة رؤية للأطفال هي مركز تعليمي منسق مصمم للمتعلمين الصغار، يجمع بين منصات التعلم العالمية والعربية الموثوقة في مكان واحد، مع أقسام منظمة للقراءة والرياضيات والعلوم وتجارب التعلم التفاعلية في بيئة آمنة وجذابة.",
+          tech: "React, JavaScript, Tailwind CSS, React Router",
         },
         bookify: {
           name: "Bookify – Library Management",
@@ -188,10 +195,21 @@ const resources = {
           desc: "An interactive examination platform providing real-time feedback and a seamless experience for both students and educators.",
           tech: "ASP.NET Core MVC, Identity, Ajax",
         },
-        sales: {
-          name: "Sales Inventory (ZITS)",
-          desc: "A mission-critical desktop application for managing real-time inventory and sales operations with high reliability.",
-          tech: "C#, WinForms, SQL Server",
+
+        ai_learning: {
+          name: "مبادرة التعلّم الذاتي (AI)",
+          desc: "مبادرة التعلم الذاتي بالذكاء الاصطناعي لمهارات نافس هي منصة تعليمية مصممة لتعزيز جاهزية الطلاب للتقييمات الوطنية من خلال الاستفادة من الأدوات المدعومة بالذكاء الاصطناعي والموارد التعليمية المنسقة في المواد الأساسية بما في ذلك الرياضيات واللغة والعلوم، مما يوفر تجربة تعليمية تفاعلية ومنظمة.",
+          tech: "React, JavaScript, Tailwind CSS, React Router",
+        },
+        pdfswifter: {
+          name: "pdfSwifter – منصة أدوات PDF",
+          desc: "pdfSwifter هي منصة ويب سريعة وآمنة تقدم مجموعة من الأدوات عبر الإنترنت لمعالجة ملفات PDF وتنزيل الوسائط، مع التركيز على الأداء والخصوصية وتجربة مستخدم سلسة.",
+          tech: "Next.js, TypeScript, Tailwind CSS, API Integration",
+        },
+        ecommerce: {
+          name: "منصة التجارة الإلكترونية",
+          desc: "منصة تجارة إلكترونية حديثة تتميز بقوائم المنتجات، ومبيعات سريعة، وفئات، وتجربة تسوق كاملة مع سلة المشتريات، وقائمة الرغبات، ومصادقة المستخدم، مصممة للأداء والتفاعل السلس للمستخدم.",
+          tech: "Angular, TypeScript, RxJS, HTML, CSS",
         },
       },
       footer: {

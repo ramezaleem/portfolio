@@ -1,6 +1,6 @@
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
-import { Linkedin, Github, Mail, Phone, MapPin } from "lucide-react";
+import { Linkedin, Github, Mail, Phone, MapPin, Briefcase } from "lucide-react";
 
 const WhatsAppIcon = (props: any) => (
   <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
@@ -8,31 +8,36 @@ const WhatsAppIcon = (props: any) => (
   </svg>
 );
 
-const connectLinks = [
-  {
-    icon: Linkedin,
-    label: "LinkedIn",
-    href: "https://www.linkedin.com/in/ramezkhalifa/",
-  },
-  {
-    icon: Github,
-    label: "GitHub",
-    href: "https://github.com/ramezaleem",
-  },
-  {
-    icon: WhatsAppIcon,
-    label: "WhatsApp: 01221614207",
-    href: "https://wa.me/201221614207",
-  },
-  {
-    icon: Mail,
-    label: "ramez.aleem532@gmail.com",
-    href: "mailto:ramez.aleem532@gmail.com",
-  },
-];
-
 export default function Contact() {
   const { t } = useTranslation();
+
+  const connectLinks = [
+    {
+      icon: Linkedin,
+      label: "LinkedIn",
+      href: "https://www.linkedin.com/in/ramezkhalifa/",
+    },
+    {
+      icon: Github,
+      label: "GitHub",
+      href: "https://github.com/ramezaleem",
+    },
+    {
+      icon: WhatsAppIcon,
+      label: "WhatsApp: 01221614207",
+      href: "https://wa.me/201221614207",
+    },
+    {
+      icon: Briefcase,
+      label: t("contact.khamsat"),
+      href: "https://khamsat.com/user/ramez_aleem",
+    },
+    {
+      icon: Mail,
+      label: "ramez.aleem532@gmail.com",
+      href: "mailto:ramez.aleem532@gmail.com",
+    },
+  ];
 
   return (
     <section id="contact" className="py-12 md:py-16 relative overflow-hidden">
@@ -60,11 +65,11 @@ export default function Contact() {
             </p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+          <div className="flex flex-wrap justify-center gap-6 max-w-5xl mx-auto">
             {connectLinks.map((link) => {
               const Icon = link.icon;
               return (
-                <div key={link.label}>
+                <div key={link.label} className="w-full sm:w-[calc(50%-12px)] lg:w-[calc(33.333%-16px)]">
                   {link.href ? (
                     <a
                       href={link.href}

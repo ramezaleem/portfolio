@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowDown, Linkedin, Github, Mail, Phone } from "lucide-react";
+import { ArrowDown, Linkedin, Github, Mail, Phone, Briefcase } from "lucide-react";
 import profileUrl from "../../assets/Original 2.jpg";
 
 function useTyped(words: string[], speed = 80, pause = 1200) {
@@ -193,6 +193,14 @@ export default function Hero() {
               rel="noreferrer"
             >
               <Github className="h-4 w-4" /> GitHub
+            </a>
+            <a
+              className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-all hover:scale-105"
+              href="https://khamsat.com/user/ramez_aleem"
+              target="_blank"
+              rel="noreferrer"
+            >
+              <Briefcase className="h-4 w-4" /> {t("contact.khamsat") || "Khamsat"}
             </a>
             <a
               className="flex items-center gap-2 text-sm font-medium text-muted-foreground hover:text-primary transition-all hover:scale-105"

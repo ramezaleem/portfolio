@@ -6,12 +6,12 @@ const categories = [
   {
     key: "backend",
     icon: Server,
-    skills: ["C#", "ASP.NET Core", "Web API", "SQL Server", "EF Core", "LINQ", "SignalR", "Microservices", "Redis"],
+    skills: ["C#", "ADO.NET", "OOP", "ASP.NET Core", "ASP.NET MVC", "Web API", "SQL Server", "EF Core", "LINQ", "SignalR", "Microservices", "Redis"],
   },
   {
     key: "frontend",
     icon: Code2,
-    skills: ["Angular", "TypeScript", "HTML5", "CSS3", "SCSS", "JavaScript", "Bootstrap"],
+    skills: ["Angular", "Next.js", "React", "TypeScript", "HTML5", "CSS3", "SCSS", "JavaScript", "Bootstrap"],
   },
   {
     key: "tools",
@@ -21,7 +21,7 @@ const categories = [
   {
     key: "soft",
     icon: Sparkles,
-    skills: ["Problem Solving", "Data Structures", "Algorithms", "Agile / Scrum", "Clean Code"],
+    skills: ["Problem Solving", "Communication", "Teamwork", "Data Structures", "Algorithms", "Agile / Scrum", "Clean Code"],
   },
 ];
 
@@ -57,10 +57,10 @@ export default function Skills() {
 
       <div className="container">
         <motion.div
-           initial={{ opacity: 0, y: 40 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: false, margin: "-100px" }}
-           transition={{ duration: 0.8, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
           <div className="text-center md:text-left">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">

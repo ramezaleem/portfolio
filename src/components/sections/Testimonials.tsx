@@ -36,7 +36,8 @@ const testimonials: Testimonial[] = [
 ];
 
 export default function Testimonials() {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
+  const isRTL = i18n.language === "ar";
   const animationRef = useRef<any>(null);
   const x = useMotionValue(0);
   const containerRef = useRef<HTMLDivElement>(null);
@@ -56,20 +57,22 @@ export default function Testimonials() {
 
   const startInfiniteAnimation = (startX: number = x.get()) => {
     if (animationRef.current) animationRef.current.stop();
-    
-    // Mathematically wrap the starting position to be within the [0, -singleWidth] range
-    let wrappedStart = startX % singleWidth;
+
+    if (singleWidth === 0) return;
+
+    // Mathematically wrap the starting position
+    let wrappedStart = startX % (isRTL ? -singleWidth : singleWidth);
     if (Object.is(wrappedStart, -0)) wrappedStart = 0;
     x.set(wrappedStart);
 
-    const distanceLeft = singleWidth + wrappedStart;
+    const targetX = isRTL ? singleWidth : -singleWidth;
+    const distanceLeft = Math.abs(targetX - wrappedStart);
     const duration = (25 * distanceLeft) / singleWidth;
 
-    animationRef.current = animate(x, [wrappedStart, -singleWidth], {
+    animationRef.current = animate(x, [wrappedStart, targetX], {
       duration: duration || 25,
       ease: "linear",
       onComplete: () => {
-        // When one cycle finishes, restart from 0
         x.set(0);
         startInfiniteAnimation(0);
       }
@@ -78,11 +81,12 @@ export default function Testimonials() {
 
   useEffect(() => {
     if (singleWidth > 0) {
-      // Start slightly offset so the user can drag both ways
-      const initialOffset = -singleWidth * 2;
+      const initialOffset = isRTL ? singleWidth * 2 : -singleWidth * 2;
       x.set(initialOffset);
-      
-      animationRef.current = animate(x, [initialOffset, initialOffset - singleWidth], {
+
+      const targetX = isRTL ? initialOffset + singleWidth : initialOffset - singleWidth;
+
+      animationRef.current = animate(x, [initialOffset, targetX], {
         duration: 25,
         repeat: Infinity,
         ease: "linear",
@@ -90,38 +94,42 @@ export default function Testimonials() {
       });
     }
     return () => animationRef.current?.stop();
-  }, [singleWidth]);
+  }, [singleWidth, isRTL]);
 
   return (
     <section id="testimonials" className="py-20 relative overflow-hidden">
       <div className="container">
         <motion.div
-           initial={{ opacity: 0, y: 40 }}
-           whileInView={{ opacity: 1, y: 0 }}
-           viewport={{ once: false, margin: "-100px" }}
-           transition={{ duration: 0.8, ease: "easeOut" }}
+          initial={{ opacity: 0, y: 40 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: false, margin: "-100px" }}
+          transition={{ duration: 0.8, ease: "easeOut" }}
         >
-          <div className="text-center md:text-left mb-12">
+          <div className={`text-center ${isRTL ? "md:text-right" : "md:text-left"} mb-12`}>
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold">
               {t("testimonials.title")}
             </h2>
-            <div className="section-divider" />
+            <div className={`section-divider ${isRTL ? "md:mr-0 md:ml-auto" : "md:ml-0 md:mr-auto"} mx-auto`} />
           </div>
 
-          <div 
+          <div
             ref={containerRef}
             className="relative overflow-hidden rounded-[2rem] cursor-grab active:cursor-grabbing group"
           >
-            <motion.div 
+            <motion.div
               drag="x"
-              dragConstraints={{ left: -singleWidth * 4, right: 0 }}
+              dragConstraints={
+                isRTL 
+                  ? { left: 0, right: singleWidth * 4 } 
+                  : { left: -singleWidth * 4, right: 0 }
+              }
               style={{ x }}
               whileTap={{ cursor: "grabbing" }}
               onDragStart={() => animationRef.current?.stop()}
               onDragEnd={() => {
                 const currentX = x.get();
-                
-                if (currentX > 0) {
+
+                if ((!isRTL && currentX > 0) || (isRTL && currentX < 0)) {
                   animate(x, 0, {
                     duration: 0.5,
                     ease: "easeOut"
@@ -144,17 +152,17 @@ export default function Testimonials() {
                         <Star key={i} className="h-3 w-3 fill-primary text-primary" />
                       ))}
                     </div>
-                    <Quote className="h-6 w-6 text-primary/10 mb-2" />
+                    <Quote className={`h-6 w-6 text-primary/10 mb-2 ${isRTL ? "rotate-180" : ""}`} />
                     <p className="text-foreground text-sm md:text-base leading-snug font-arabic font-bold text-right dir-rtl select-none line-clamp-5">
                       "{item.content}"
                     </p>
                   </div>
-                  
-                  <div className="flex items-center gap-3 border-t border-primary/10 pt-4 mt-auto">
+
+                  <div className={`flex items-center gap-3 border-t border-primary/10 pt-4 mt-auto ${isRTL ? "flex-row-reverse" : "flex-row"}`}>
                     <div className="h-9 w-9 shrink-0 rounded-full bg-gradient-to-tr from-primary/40 to-primary/10 flex items-center justify-center font-black text-primary text-sm border border-primary/20 shadow-lg">
                       {item.name.charAt(0)}
                     </div>
-                    <div className="text-left overflow-hidden">
+                    <div className={`${isRTL ? "text-right" : "text-left"} overflow-hidden`}>
                       <p className="font-bold text-xs text-foreground tracking-tight truncate">{item.name}</p>
                       <p className="text-[8px] text-muted-foreground font-bold uppercase tracking-wider opacity-60">Verified Member</p>
                     </div>

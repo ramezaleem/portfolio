@@ -58,7 +58,7 @@ export default function Navbar() {
             size="sm"
             className="hidden sm:inline-flex rounded-full px-5 group"
           >
-            <a href="/Ramez-DotNet-Developer.pdf" download>
+            <a href="/RamezKhalifa-DotNet-Developer.pdf" download>
               <Download className="mr-1 h-3.5 w-3.5 transition-transform group-hover:-translate-y-0.5" />
               {t("nav.downloadCV")}
             </a>
@@ -97,7 +97,7 @@ export default function Navbar() {
               </a>
             ))}
             <Button asChild variant="hero" size="sm" className="rounded-full w-fit mt-2">
-              <a href="/Ramez-DotNet-Developer.pdf" download>
+              <a href="/RamezKhalifa-DotNet-Developer.pdf" download>
                 <Download className="mr-1 h-3.5 w-3.5" />
                 {t("nav.downloadCV")}
               </a>

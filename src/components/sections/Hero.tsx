@@ -2,7 +2,7 @@ import { motion } from "framer-motion";
 import { Button } from "@/components/ui/button";
 import { useEffect, useRef, useState } from "react";
 import { useTranslation } from "react-i18next";
-import { ArrowDown, Linkedin, Github, Mail, Phone, Briefcase } from "lucide-react";
+import { ArrowDown, Linkedin, Github, Mail, Phone, Briefcase, Download } from "lucide-react";
 import profileUrl from "../../assets/Original 2.jpg";
 
 function useTyped(words: string[], speed = 80, pause = 1200) {
@@ -140,16 +140,16 @@ export default function Hero() {
 
           {/* CTA Buttons */}
           <motion.div
-            className="mt-4 flex flex-col sm:flex-row gap-4 justify-center md:justify-start"
+            className="mt-4 flex flex-col sm:flex-row flex-wrap gap-4 justify-center md:justify-start"
             variants={fadeUp}
             custom={3}
           >
-            <motion.div whileHover={{ y: -4 }} whileTap={{ scale: 0.97 }}>
+            <motion.div whileHover={{ y: -4 }} whileTap={{ scale: 0.97 }} className="w-full sm:w-auto">
               <Button
                 asChild
                 size="lg"
                 variant="hero"
-                className="px-8 h-12 text-sm font-bold rounded-xl hover-glow-primary transition-all duration-300 shadow-lg shadow-primary/20"
+                className="px-8 h-12 text-sm font-bold rounded-xl hover-glow-primary transition-all duration-300 shadow-lg shadow-primary/20 w-full sm:w-auto"
               >
                 <a href="#projects" className="flex items-center">
                   {t("hero.ctas.viewProjects")}
@@ -157,12 +157,26 @@ export default function Hero() {
                 </a>
               </Button>
             </motion.div>
-            <motion.div whileHover={{ y: -4 }} whileTap={{ scale: 0.97 }}>
+
+            <motion.div whileHover={{ y: -4 }} whileTap={{ scale: 0.97 }} className="w-full sm:hidden">
+              <Button
+                asChild
+                size="lg"
+                className="px-8 h-12 text-sm font-bold rounded-xl bg-indigo-500/10 border-indigo-500/30 hover:bg-indigo-500/20 text-indigo-400 transition-all duration-300 backdrop-blur-md shadow-lg shadow-indigo-500/10 w-full"
+              >
+                <a href="/RamezKhalifa-DotNet-Developer.pdf" download className="flex items-center">
+                  <Download className="mr-2 h-4 w-4" />
+                  {t("nav.downloadCV")}
+                </a>
+              </Button>
+            </motion.div>
+
+            <motion.div whileHover={{ y: -4 }} whileTap={{ scale: 0.97 }} className="w-full sm:w-auto">
               <Button
                 asChild
                 size="lg"
                 variant="outline"
-                className="px-8 h-12 text-sm font-bold rounded-xl bg-green-500/5 border-green-500/20 hover:bg-green-500/10 hover:border-green-500/30 transition-all duration-300 backdrop-blur-md"
+                className="px-8 h-12 text-sm font-bold rounded-xl bg-green-500/5 border-green-500/20 hover:bg-green-500/10 hover:border-green-500/30 transition-all duration-300 backdrop-blur-md w-full sm:w-auto"
               >
                 <a href="https://wa.me/201221614207" target="_blank" rel="noreferrer" className="flex items-center gap-2">
                   <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />

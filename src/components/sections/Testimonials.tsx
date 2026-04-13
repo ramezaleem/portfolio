@@ -119,8 +119,8 @@ export default function Testimonials() {
             <motion.div
               drag="x"
               dragConstraints={
-                isRTL 
-                  ? { left: 0, right: singleWidth * 4 } 
+                isRTL
+                  ? { left: 0, right: singleWidth * 4 }
                   : { left: -singleWidth * 4, right: 0 }
               }
               style={{ x }}

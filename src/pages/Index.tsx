@@ -9,6 +9,7 @@ import Footer from "@/components/sections/Footer";
 import ScrollProgress from "@/components/ScrollProgress";
 import WaveLoader from "@/components/WaveLoader";
 import ScrollToTop from "@/components/ScrollToTop";
+import WaveDivider from "@/components/WaveDivider";
 
 const Index = () => {
   return (
@@ -22,10 +23,15 @@ const Index = () => {
         <Navbar />
         <main id="home">
           <Hero />
+          <WaveDivider />
           <About />
+          <WaveDivider flip />
           <Skills />
+          <WaveDivider />
           <Projects />
+          <WaveDivider flip />
           <Testimonials />
+          <WaveDivider />
           <Contact />
         </main>
         <Footer />

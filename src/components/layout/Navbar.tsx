@@ -5,11 +5,34 @@ import { Button } from "@/components/ui/button";
 import { useTranslation } from "react-i18next";
 import { motion } from "framer-motion";
 import { Download, Menu, X } from "lucide-react";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 export default function Navbar() {
   const { t } = useTranslation();
   const [mobileOpen, setMobileOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState("");
+
+  useEffect(() => {
+    const sectionIds = ["about", "skills", "projects", "testimonials", "contact"];
+    const observers: IntersectionObserver[] = [];
+
+    sectionIds.forEach((id) => {
+      const el = document.getElementById(id);
+      if (!el) return;
+      const observer = new IntersectionObserver(
+        ([entry]) => {
+          if (entry.isIntersecting) {
+            setActiveSection(`#${id}`);
+          }
+        },
+        { rootMargin: "-40% 0px -55% 0px" }
+      );
+      observer.observe(el);
+      observers.push(observer);
+    });
+
+    return () => observers.forEach((o) => o.disconnect());
+  }, []);
 
   const items = [
     { href: "#about", label: t("nav.about") },
@@ -40,7 +63,11 @@ export default function Navbar() {
             <motion.a
               key={it.href}
               href={it.href}
-              className="text-sm text-muted-foreground hover:text-foreground transition-colors story-link relative font-medium"
+              className={`text-sm transition-colors story-link relative font-medium ${
+                activeSection === it.href
+                  ? "text-primary font-semibold"
+                  : "text-muted-foreground hover:text-foreground"
+              }`}
               initial={{ opacity: 0, y: -10 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: 0.1 + i * 0.08, duration: 0.4 }}

@@ -1,6 +1,7 @@
 import { useTranslation } from "react-i18next";
 import { Database, Code2, Server, Wrench, Sparkles } from "lucide-react";
 import { motion } from "framer-motion";
+import { useRef, useState } from "react";
 
 const categories = [
   {
@@ -25,24 +26,40 @@ const categories = [
   },
 ];
 
-const containerVariants = {
-  hidden: {},
-  visible: {
-    transition: {
-      staggerChildren: 0.1,
-    },
-  },
-};
+function TiltCard({ children }: { children: React.ReactNode }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const [transform, setTransform] = useState("");
 
-const cardVariants = {
-  hidden: { opacity: 0, y: 30, scale: 0.95 },
-  visible: {
-    opacity: 1,
-    y: 0,
-    scale: 1,
-    transition: { duration: 0.5, ease: "easeOut" },
-  },
-};
+  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+    if (!ref.current) return;
+    const rect = ref.current.getBoundingClientRect();
+    const x = e.clientX - rect.left;
+    const y = e.clientY - rect.top;
+    const centerX = rect.width / 2;
+    const centerY = rect.height / 2;
+    const rotateX = ((y - centerY) / centerY) * -6;
+    const rotateY = ((x - centerX) / centerX) * 6;
+    setTransform(`perspective(600px) rotateX(${rotateX}deg) rotateY(${rotateY}deg) scale3d(1.02, 1.02, 1.02)`);
+  };
+
+  const handleMouseLeave = () => {
+    setTransform("");
+  };
+
+  return (
+    <div
+      ref={ref}
+      onMouseMove={handleMouseMove}
+      onMouseLeave={handleMouseLeave}
+      style={{
+        transform,
+        transition: transform ? "transform 0.1s ease-out" : "transform 0.4s ease-out",
+      }}
+    >
+      {children}
+    </div>
+  );
+}
 
 export default function Skills() {
   const { t } = useTranslation();
@@ -71,29 +88,30 @@ export default function Skills() {
 
           <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {categories.map(({ key, icon: Icon, skills }) => (
-              <article
-                key={key}
-                className="glass-card rounded-xl p-4 group"
-              >
-                <div className="flex items-center gap-2 mb-3">
-                  <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
-                    <Icon className="h-4 w-4" />
+              <TiltCard key={key}>
+                <article
+                  className="glass-card rounded-xl p-4 group h-full"
+                >
+                  <div className="flex items-center gap-2 mb-3">
+                    <div className="p-2 rounded-lg bg-primary/10 text-primary group-hover:bg-primary group-hover:text-primary-foreground transition-all duration-300">
+                      <Icon className="h-4 w-4" />
+                    </div>
+                    <h3 className="font-semibold text-base">
+                      {t(`skills.categories.${key}`)}
+                    </h3>
                   </div>
-                  <h3 className="font-semibold text-base">
-                    {t(`skills.categories.${key}`)}
-                  </h3>
-                </div>
-                <div className="flex flex-wrap gap-2">
-                  {skills.map((s) => (
-                    <span
-                      key={s}
-                      className="skill-tag text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white hover:text-black transition-all duration-300 cursor-default"
-                    >
-                      {s}
-                    </span>
-                  ))}
-                </div>
-              </article>
+                  <div className="flex flex-wrap gap-2">
+                    {skills.map((s) => (
+                      <span
+                        key={s}
+                        className="skill-tag text-xs font-semibold px-3 py-1.5 rounded-lg bg-white/10 text-white border border-white/20 hover:bg-white hover:text-black transition-all duration-300 cursor-default"
+                      >
+                        {s}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              </TiltCard>
             ))}
           </div>
         </motion.div>

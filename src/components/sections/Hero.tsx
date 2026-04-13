@@ -176,10 +176,10 @@ export default function Hero() {
                 asChild
                 size="lg"
                 variant="outline"
-                className="px-8 h-12 text-sm font-bold rounded-xl bg-green-500/5 border-green-500/20 hover:bg-green-500/10 hover:border-green-500/30 transition-all duration-300 backdrop-blur-md w-full sm:w-auto"
+                className="px-8 h-12 text-sm font-bold rounded-xl bg-green-500/5 border-green-500/20 hover:bg-green-500 hover:text-white hover:border-green-600 hover:shadow-[0_0_20px_rgba(34,197,94,0.4)] transition-all duration-300 backdrop-blur-md w-full sm:w-auto group"
               >
                 <a href="https://wa.me/201221614207" target="_blank" rel="noreferrer" className="flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse" />
+                  <span className="w-2 h-2 rounded-full bg-green-500 animate-pulse group-hover:bg-white" />
                   WhatsApp Me
                 </a>
               </Button>
@@ -235,32 +235,34 @@ export default function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4, duration: 0.7, ease: "easeOut" }}
         >
-          <div className="relative">
-            {/* Glow behind photo */}
-            <div
-              className="absolute -inset-6 rounded-full blur-3xl opacity-40"
-              style={{
-                background:
-                  "radial-gradient(circle at 50% 50%, hsla(270 80% 60% / 0.5), hsla(285 75% 65% / 0.3), transparent 60%)",
+          <div className="relative group">
+            {/* Simple Soft Glow */}
+            <motion.div 
+              className="absolute -inset-2 rounded-full bg-gradient-to-tr from-primary to-accent opacity-30 blur-xl z-0"
+              animate={{ 
+                opacity: [0.2, 0.4, 0.2],
+                scale: [1, 1.05, 1] 
               }}
+              transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             />
-            {/* Spinning gradient ring */}
-            <div className="glow-ring">
-              <motion.img
-                src={profileUrl}
-                alt="Ramez Khalifa profile photo"
-                className="h-48 w-48 md:h-64 md:w-64 lg:h-72 lg:w-72 rounded-full shadow-[var(--shadow-elevated)] object-cover relative z-10"
-                animate={{
-                  y: [0, -15, 0],
-                  rotate: [0, 1, -1, 0]
-                }}
-                transition={{
-                  duration: 6,
-                  repeat: Infinity,
-                  ease: "easeInOut"
-                }}
-                whileHover={{ scale: 1.05 }}
-              />
+
+            {/* Clean Gradient Border */}
+            <div className="relative z-10 p-[3px] rounded-full bg-gradient-to-tr from-primary/50 to-accent/50 shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
+              <div className="rounded-full bg-background p-1">
+                <motion.img
+                  src={profileUrl}
+                  alt="Ramez Khalifa profile photo"
+                  className="h-48 w-48 md:h-64 md:w-64 lg:h-72 lg:w-72 rounded-full object-cover relative z-10"
+                  animate={{
+                    y: [0, -8, 0],
+                  }}
+                  transition={{
+                    duration: 5,
+                    repeat: Infinity,
+                    ease: "easeInOut"
+                  }}
+                />
+              </div>
             </div>
           </div>
         </motion.div>

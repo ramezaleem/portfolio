@@ -95,7 +95,7 @@ export default function Hero() {
         aria-hidden
       />
 
-      <div className="container flex flex-col-reverse md:flex-row items-center gap-12 py-12 md:py-16">
+      <div className="container flex flex-col-reverse md:flex-row items-center gap-12 pt-12 pb-24 md:py-16">
         {/* Text content */}
         <motion.div
           className="flex-1 text-center md:text-start"
@@ -235,8 +235,18 @@ export default function Hero() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ delay: 0.4, duration: 0.7, ease: "easeOut" }}
         >
-          <div className="relative group">
-            {/* Simple Soft Glow */}
+          <motion.div 
+            className="relative"
+            animate={{
+              y: [0, -12, 0],
+            }}
+            transition={{
+              duration: 5,
+              repeat: Infinity,
+              ease: "easeInOut"
+            }}
+          >
+            {/* Simple Soft Glow - Now moves with the group */}
             <motion.div 
               className="absolute -inset-2 rounded-full bg-gradient-to-tr from-primary to-accent opacity-30 blur-xl z-0"
               animate={{ 
@@ -246,35 +256,29 @@ export default function Hero() {
               transition={{ duration: 4, repeat: Infinity, ease: "easeInOut" }}
             />
 
-            {/* Clean Gradient Border */}
-            <div className="relative z-10 p-[3px] rounded-full bg-gradient-to-tr from-primary/50 to-accent/50 shadow-2xl transition-transform duration-500 group-hover:scale-[1.02]">
+            {/* Clean Gradient Border Group */}
+            <div className="relative z-10 p-[3px] rounded-full bg-gradient-to-tr from-primary/50 to-accent/50 shadow-2xl">
               <div className="rounded-full bg-background p-1">
-                <motion.img
+                <img
                   src={profileUrl}
                   alt="Ramez Khalifa profile photo"
                   className="h-48 w-48 md:h-64 md:w-64 lg:h-72 lg:w-72 rounded-full object-cover relative z-10"
-                  animate={{
-                    y: [0, -8, 0],
-                  }}
-                  transition={{
-                    duration: 5,
-                    repeat: Infinity,
-                    ease: "easeInOut"
-                  }}
                 />
               </div>
             </div>
-          </div>
+          </motion.div>
         </motion.div>
       </div>
 
       {/* Scroll indicator */}
       <motion.div
-        className="absolute bottom-16 left-1/2 -translate-x-1/2 z-20"
+        className="absolute bottom-6 left-1/2 -translate-x-1/2 z-20"
         animate={{ y: [0, 8, 0] }}
         transition={{ repeat: Infinity, duration: 1.5, ease: "easeInOut" }}
       >
-        <ArrowDown className="h-5 w-5 text-muted-foreground/50" />
+        <a href="#about" aria-label="Scroll to About section" className="p-2 block hover:text-primary transition-colors">
+          <ArrowDown className="h-5 w-5 text-muted-foreground/50" />
+        </a>
       </motion.div>
     </section>
   );
